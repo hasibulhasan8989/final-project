@@ -1,0 +1,8 @@
+
+.carousel .thumbs {
+  display: flex !important;
+  justify-content: center !important;
+  width: auto !important;
+  cursor: pointer;
+}
+
