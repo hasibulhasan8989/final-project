@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
+
 import PopularItemCard from "../../../Shared/PopularItemCard/PopularItemCard";
 import SectionTitle from "../../../Components/SectionTitle";
+import useMenu from "../../../Hooks/useMenu";
 
 
 const FromOurMenu = () => {
-    const [items,setItems]=useState([])
+    
 
-    useEffect(()=>{
-     fetch('menu.json')
-     .then(res=>res.json())
-     .then(data=>{
-       const popularItem=data.filter(item=>item.category==='popular')
-       setItems(popularItem)
-       console.log(popularItem)
-     })
-    },[])
+    const items=useMenu()
+    const popularItem=items.filter(item=>item.category==='popular')
 
     return (
         <div className="container mx-auto px-4">
@@ -24,7 +18,7 @@ const FromOurMenu = () => {
             ></SectionTitle>
            <div className="grid md:grid-cols-2 gap-6">
             {
-                items.map(item=><PopularItemCard item={item}></PopularItemCard>)
+                popularItem.map(item=><PopularItemCard key={item._id} item={item}></PopularItemCard>)
             }
            </div>
            <button  className="uppercase mx-auto block md:mt-16  mt-10 mb-16 md:mb-30 text-xl font-medium px-7 py-5 border-b-4 rounded-xl hover:bg-gray-700 cursor-pointer">View Full  Menu</button>
