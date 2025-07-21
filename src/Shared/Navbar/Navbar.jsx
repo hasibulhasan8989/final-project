@@ -1,12 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 
 const Navbar = () => {
+  const {user,logOut}=useAuth()
+  const handleLogout=async()=>{
+      try {
+        await logOut()
+      } catch (error) {
+        console.log(error)
+      }
+  }
   
     const list=<>
     <li><Link to={'/'}>Home</Link></li>
     <li><Link to={'/menu'}>Our Menu</Link></li>
+    <li><Link to={'/contact-us'}>Contact Us</Link></li>
     <li><Link to={`/our-shop/salad`}>Our Shop</Link></li>
+    {
+      user? <li><button onClick={handleLogout} >Logout</button></li>   : <li><Link to={`/login`}>Login</Link></li>
+    }
+
     </>
 
     return (

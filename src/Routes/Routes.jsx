@@ -6,6 +6,10 @@ import MainLayout from "../Layouts/MainLayout";
 import Home from "../Pages/Home/Home/Home";
 import Menu from "../Pages/Menu/Menu/Menu";
 import OurShop from "../Pages/OurShop/OurShop/OurShop";
+import Login from "../Pages/Login/Login";
+import SignUp from "../Pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
+import ContactUs from "../Pages/ContactUs/ContactUs/ContactUs";
 
  export const router = createBrowserRouter([
   {
@@ -23,6 +27,20 @@ import OurShop from "../Pages/OurShop/OurShop/OurShop";
         {
           path:'/our-shop/:category',
           element:<OurShop></OurShop>
+        },
+        {
+          path:'/login',
+          element:<Login></Login>
+        },
+        {
+          path:'/signup',
+          element:<SignUp></SignUp>
+          
+        },
+        {
+          path:'/contact-us',
+          element:<ContactUs></ContactUs>
+          
         }
     ]
   },
