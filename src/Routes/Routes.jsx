@@ -10,6 +10,8 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import ContactUs from "../Pages/ContactUs/ContactUs/ContactUs";
+import DashBoard from "../Layouts/DashBoard";
+import MyCart from "../Pages/DashBoard/MyCart/Mycart";
 
  export const router = createBrowserRouter([
   {
@@ -44,4 +46,14 @@ import ContactUs from "../Pages/ContactUs/ContactUs/ContactUs";
         }
     ]
   },
+  {
+    path:'dashboard',
+    element:<DashBoard></DashBoard>,
+    children:[
+      {
+        path:'my-cart',
+        element:<MyCart></MyCart>
+      }
+    ]
+  }
 ]);

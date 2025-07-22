@@ -7,7 +7,7 @@ const InfoCard = ({icon,title,content}) => {
       {icon}
     </div>
     <div className="bg-gray-100 px-12 py-16 text-center">
-      <h4 className="font-semibold text-lg mb-1">{title}</h4>
+      <h4 className="font-semibold  text-lg mb-1">{title}</h4>
       <p className="text-gray-700 whitespace-pre-line">{content}</p>
     </div>
   </div>

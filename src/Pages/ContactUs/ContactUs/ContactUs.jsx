@@ -31,13 +31,13 @@ const ContactUs = () => {
         title={"CONTACT US"}
         content={"Would you like to try a dish?"}
       ></MenuCover>
-     <div className="container mx-auto">
+     <div className="container px-4 mx-auto">
          <SectionTitle
         time={"---Visit Us---"}
         title={"OUR LOCATION"}
       ></SectionTitle>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row gap-6">
         {info.map((item,idx) => (
           <InfoCard key={idx}  title={item.title} content={item.content} icon={item.icon} ></InfoCard>
         ))}

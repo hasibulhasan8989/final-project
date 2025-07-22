@@ -9,13 +9,16 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
+  const location=useLocation()
   const captchaRef = useRef(null);
   const [disable, setDisable] = useState(true);
   const {googleLogIn,login,}=useAuth()
+  const navigate=useNavigate()
+  console.log(location)
 
   const handleLogin = async(e) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ const Login = () => {
     const password = from.password.value;
     try {
        await login(email,password)
-       
+        navigate(location?.state || '/')
        
       } catch (error) {
         console.log(error)
@@ -35,6 +38,8 @@ const Login = () => {
   const handleGoogleLogin=async()=>{
       try {
        await googleLogIn()
+        navigate(location?.state || '/')
+       
        
       } catch (error) {
         console.log(error)
