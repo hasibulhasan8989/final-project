@@ -11,10 +11,13 @@ import { MdEmail } from "react-icons/md";
 import { FaCartShopping, FaListCheck, FaShop } from "react-icons/fa6";
 import { Link, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 const DashBoard = () => {
   const { cart } = useCart();
-  const isAdmin=true;
+  const {isAdmin}=useAdmin()
+  console.log(isAdmin)
+  
   return (
     <div className="flex md:flex-row flex-col">
       <div className="">
@@ -75,7 +78,7 @@ const DashBoard = () => {
                 </Link>
               </li>
               <li>
-                <Link>
+                <Link to={'/dashboard/users'}>
                   {" "}
                   <IoIosPeople size={25}></IoIosPeople> All Users
                 </Link>
