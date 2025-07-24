@@ -11,54 +11,56 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
-  const location=useLocation()
+  const location = useLocation();
   const captchaRef = useRef(null);
   const [disable, setDisable] = useState(true);
-  const {googleLogIn,login,}=useAuth()
-  const navigate=useNavigate()
-  console.log(location)
+  const { googleLogIn, login } = useAuth();
+  const navigate = useNavigate();
+  const axiosPublic=useAxiosPublic()
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const from = e.target;
     const email = from.email.value;
     const password = from.password.value;
     try {
-       await login(email,password)
-        navigate(location?.state || '/')
-       
-      } catch (error) {
-        console.log(error)
-      }
-    
+      await login(email, password);
+      navigate(location?.state || "/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleGoogleLogin=async()=>{
-      try {
-       await googleLogIn()
-        navigate(location?.state || '/')
-       
-       
-      } catch (error) {
-        console.log(error)
+  const handleGoogleLogin = async () => {
+    try {
+      const { user } = await googleLogIn();
+      if (user) {
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+        };
+        axiosPublic.post('/users',userInfo)
+         .then(res=>console.log(res.data))
       }
 
-  }
+      navigate(location?.state || "/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleCaptcha = () => {
     const text = captchaRef.current.value;
     console.log(text);
-    
-     if (validateCaptcha(text)==true) {
-         setDisable(false)
-     }
 
-     else {
-         alert('Captcha Does Not Match');
-     }
-
+    if (validateCaptcha(text) == true) {
+      setDisable(false);
+    } else {
+      alert("Captcha Does Not Match");
+    }
   };
 
   useEffect(() => {
@@ -103,24 +105,21 @@ const Login = () => {
                 className=" text-lg border-2 text-[#A1A1A1] bg-white rounded-lg border-[#D0D0D0] w-full pl-4 py-2 md:py-5"
                 placeholder="Enter your password"
               />
-             
-              
 
-             
-              {
-                disable && <div>
-                    <LoadCanvasTemplate />
-                    <input
-                type="text"
-                ref={captchaRef}
-                className=" text-lg border-2 text-[#A1A1A1] bg-white rounded-lg border-[#D0D0D0] w-full pl-4 md:py-5 py-2"
-                placeholder="Type here"
-              />
-              <button onClick={handleCaptcha} className="btn w-1/4 ">
-                Verify
-              </button>
+              {disable && (
+                <div>
+                  <LoadCanvasTemplate />
+                  <input
+                    type="text"
+                    ref={captchaRef}
+                    className=" text-lg border-2 text-[#A1A1A1] bg-white rounded-lg border-[#D0D0D0] w-full pl-4 md:py-5 py-2"
+                    placeholder="Type here"
+                  />
+                  <button onClick={handleCaptcha} className="btn w-1/4 ">
+                    Verify
+                  </button>
                 </div>
-              }
+              )}
 
               <button
                 disabled={disable}
@@ -133,13 +132,25 @@ const Login = () => {
             </form>
             <div className="text-center space-y-3">
               <h1 className="text-[#D1A054B2]  text-xl">
-                New here? {<Link className="underline font-semibold text-amber-400" to={'/signup'}>Create a New Account</Link>}
+                New here?{" "}
+                {
+                  <Link
+                    className="underline font-semibold text-amber-400"
+                    to={"/signup"}
+                  >
+                    Create a New Account
+                  </Link>
+                }
               </h1>
               <p className="text-lg">Or sign in with</p>
               <div className="flex justify-center items-center gap-8 ">
-                <FaGoogle onClick={handleGoogleLogin} className="cursor-pointer" size={35}></FaGoogle>
+                <FaGoogle
+                  onClick={handleGoogleLogin}
+                  className="cursor-pointer"
+                  size={35}
+                ></FaGoogle>
                 <FaFacebook size={35}></FaFacebook>
-                <FaGithub  size={35}></FaGithub>
+                <FaGithub size={35}></FaGithub>
               </div>
             </div>
           </div>

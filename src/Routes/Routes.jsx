@@ -52,7 +52,7 @@ import MyCart from "../Pages/DashBoard/MyCart/Mycart";
     children:[
       {
         path:'my-cart',
-        element:<MyCart></MyCart>
+        element:<PrivateRoute><MyCart></MyCart></PrivateRoute>
       }
     ]
   }

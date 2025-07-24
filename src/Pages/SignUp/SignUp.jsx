@@ -5,9 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import toast from "react-hot-toast";
 
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+
 const SignUp = () => {
   const { singUp, updateUser } = useAuth();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -30,10 +33,18 @@ const SignUp = () => {
     try {
       await singUp(email, password);
       await updateUser(name, photo);
-      from.reset()
-      toast.success("Sign Up Successful!!")
-      navigate('/')
-
+      const userInfo = {
+        name,
+        email,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        if(res.data.insertedId){
+        from.reset();
+        toast.success("Sign Up Successful!!");
+        navigate("/");
+        };
+        
+      });
     } catch (error) {
       console.log(error);
     }
@@ -60,9 +71,10 @@ const SignUp = () => {
                 Name
               </label>
               <input
+               required
                 type="text"
                 name="name"
-                required
+               
                 className=" text-lg border-2 text-[#A1A1A1] bg-white rounded-lg border-[#D0D0D0] w-full pl-4 py-2 md:py-5"
                 placeholder="Enter email"
               />

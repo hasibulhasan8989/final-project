@@ -1,15 +1,20 @@
-import { FaCalendar, FaCommentDots, FaHome, FaWallet } from "react-icons/fa";
+import { FaBook, FaCalendar, FaCommentDots, FaHome, FaWallet } from "react-icons/fa";
+import { IoIosPeople } from "react-icons/io";
+
+import { ImSpoonKnife } from "react-icons/im";
+
 import { MdEditCalendar } from "react-icons/md";
 import { CiBoxList } from "react-icons/ci";
 import { MdEmail } from "react-icons/md";
 
 
-import { FaCartShopping, FaShop } from "react-icons/fa6";
+import { FaCartShopping, FaListCheck, FaShop } from "react-icons/fa6";
 import { Link, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
 
 const DashBoard = () => {
   const { cart } = useCart();
+  const isAdmin=true;
   return (
     <div className="flex md:flex-row flex-col">
       <div className="">
@@ -42,7 +47,43 @@ const DashBoard = () => {
                 <span className="tracking-wider">Restaurant</span>
               </div>
 
+              {
+                isAdmin ?<>
+                {/* admin Panel */}
+                <li>
+                <Link>
+                  {" "}
+                  <FaHome size={30}></FaHome> Admin Home
+                </Link>
+              </li>
               <li>
+                <Link>
+                  {" "}
+                  <ImSpoonKnife size={25}></ImSpoonKnife> Add Items
+                </Link>
+              </li>
+              <li>
+                <Link>
+                  {" "}
+                  <FaListCheck size={25}></FaListCheck> Manage Items
+                </Link>
+              </li>
+              <li>
+                <Link >
+                  {" "}
+                  <FaBook size={25}></FaBook> Manage Booking 
+                </Link>
+              </li>
+              <li>
+                <Link>
+                  {" "}
+                  <IoIosPeople size={25}></IoIosPeople> All Users
+                </Link>
+              </li>
+              
+                </> :<>
+                {/* normal user */}
+                <li>
                 <Link>
                   {" "}
                   <FaHome size={30}></FaHome> User Home
@@ -79,6 +120,10 @@ const DashBoard = () => {
                   <MdEditCalendar size={25}></MdEditCalendar> My Booking
                 </Link>
               </li>
+                </>
+              }
+
+
               <p
                 className="divider
 "
