@@ -12,12 +12,12 @@ import { Link } from "react-router-dom";
 import MenuItems from "../MenuItems/MenuItems";
 
 const Menu = () => {
-  const items = useMenu();
-  const offers = items.filter((item) => item.category === "offered");
-  const pizzas = items.filter((item) => item.category === "pizza");
-  const soups = items.filter((item) => item.category === "soup");
-  const salads = items.filter((item) => item.category === "salad");
-  const dessert = items.filter((item) => item.category === "dessert");
+  const {menu} = useMenu();
+  const offers = menu.filter((item) => item.category === "offered");
+  const pizzas = menu.filter((item) => item.category === "pizza");
+  const soups = menu.filter((item) => item.category === "soup");
+  const salads = menu.filter((item) => item.category === "salad");
+  const dessert = menu.filter((item) => item.category === "dessert");
   return (
     <div>
       <Helmet>

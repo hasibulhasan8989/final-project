@@ -16,13 +16,13 @@ const OurShop = () => {
   const indexNo = categories.indexOf(category);
   
   const [tabIndex, setTabIndex] = useState(indexNo);
-  const items = useMenu();
+  const {menu} = useMenu();
 
-  const drinks = items.filter((item) => item.category === "drinks");
-  const pizzas = items.filter((item) => item.category === "pizza");
-  const soups = items.filter((item) => item.category === "soup");
-  const salads = items.filter((item) => item.category === "salad");
-  const deserts = items.filter((item) => item.category === "dessert");
+  const drinks = menu.filter((item) => item.category === "drinks");
+  const pizzas = menu.filter((item) => item.category === "pizza");
+  const soups = menu.filter((item) => item.category === "soup");
+  const salads = menu.filter((item) => item.category === "salad");
+  const deserts = menu.filter((item) => item.category === "dessert");
 
   return (
     <div>

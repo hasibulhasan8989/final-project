@@ -7,8 +7,8 @@ import useMenu from "../../../Hooks/useMenu";
 const FromOurMenu = () => {
     
 
-    const items=useMenu()
-    const popularItem=items.filter(item=>item.category==='popular')
+    const {menu}=useMenu()
+    const popularItem=menu.filter(item=>item.category==='popular')
 
     return (
         <div className="container mx-auto px-4">
