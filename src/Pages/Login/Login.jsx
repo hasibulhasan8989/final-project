@@ -43,7 +43,7 @@ const Login = () => {
           email: user.email,
         };
         axiosPublic.post('/users',userInfo)
-         .then(res=>console.log(res.data))
+         .then(()=>{})
       }
 
       navigate(location?.state || "/");

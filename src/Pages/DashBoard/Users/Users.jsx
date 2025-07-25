@@ -5,10 +5,12 @@ import useAxios from "../../../Hooks/useAxios";
 import { MdDelete } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import Swal from "sweetalert2";
+import useAuth from "../../../Hooks/useAuth";
 
 
 const Users = () => {
   const axiosSecure = useAxios();
+  const {user}=useAuth()
   
 
   const { data: users = [], refetch } = useQuery({
@@ -55,14 +57,23 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/users/${id}`)
+        axiosSecure.delete(`/users/${id}?email=${user.email}`)
          .then((res) => {
+          
           if (res.data.deletedCount > 0) {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "User has been deleted.",
               icon: "success",
+            });
+          }
+          if (res.data.message === "Unknown") {
+            
+            Swal.fire({
+              title: "Error",
+              text: "Cannot Perform This Operation",
+              icon: "error",
             });
           }
         });

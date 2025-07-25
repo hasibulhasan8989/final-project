@@ -13,6 +13,10 @@ import ContactUs from "../Pages/ContactUs/ContactUs/ContactUs";
 import DashBoard from "../Layouts/DashBoard";
 import MyCart from "../Pages/DashBoard/MyCart/Mycart";
 import Users from "../Pages/DashBoard/Users/Users";
+import AdminRoute from "./AdminRoute";
+import AddItems from "../Pages/DashBoard/AddItems/AddItems";
+import ManageItems from "../Pages/DashBoard/ManageItems/ManageItems";
+import UpdateMenuItem from "../Pages/DashBoard/UpdateMenu/UpdateMenuItem";
 
  export const router = createBrowserRouter([
   {
@@ -51,15 +55,30 @@ import Users from "../Pages/DashBoard/Users/Users";
     path:'dashboard',
     element:<PrivateRoute><DashBoard></DashBoard></PrivateRoute>,
     children:[
+      // user route
       {
         path:'my-cart',
         element:<MyCart></MyCart>
       },
+
+      // admin route
      
       {
         path:'users',
-        element:<Users></Users>
-      }
+        element:<AdminRoute><Users></Users></AdminRoute>
+      },
+      
+      {
+        path:'manage-items',
+        element:<AdminRoute><ManageItems></ManageItems></AdminRoute>
+      },
+      {
+        path:'update-item/:id',
+        element:<AdminRoute><UpdateMenuItem></UpdateMenuItem></AdminRoute>,
+        loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
+        
+      },
+
     ]
   }
 ]);

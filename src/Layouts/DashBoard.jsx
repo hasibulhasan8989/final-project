@@ -9,19 +9,19 @@ import { MdEmail } from "react-icons/md";
 
 
 import { FaCartShopping, FaListCheck, FaShop } from "react-icons/fa6";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
 import useAdmin from "../Hooks/useAdmin";
 
 const DashBoard = () => {
   const { cart } = useCart();
   const {isAdmin}=useAdmin()
-  console.log(isAdmin)
+  
   
   return (
     <div className="flex md:flex-row flex-col">
       <div className="">
-        <div className="drawer  lg:drawer-open">
+        <div className="drawer   lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content  flex flex-col items-center justify-center">
             {/* Page content here */}
@@ -60,16 +60,16 @@ const DashBoard = () => {
                 </Link>
               </li>
               <li>
-                <Link>
+                <NavLink to={'/dashboard/add-items'}>
                   {" "}
                   <ImSpoonKnife size={25}></ImSpoonKnife> Add Items
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link>
+                <NavLink to={'/dashboard/manage-items'}>
                   {" "}
                   <FaListCheck size={25}></FaListCheck> Manage Items
-                </Link>
+                </NavLink>
               </li>
               <li>
                 <Link >
