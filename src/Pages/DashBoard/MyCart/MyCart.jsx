@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import SectionTitle from "../../../Components/SectionTitle";
 import Swal from "sweetalert2";
 import useAxios from "../../../Hooks/useAxios";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const { cart,refetch } = useCart();
@@ -47,7 +48,11 @@ const MyCart = () => {
       <div className="cinzel flex mb-4 justify-evenly items-center">
         <p className=" md:text-3xl text-xl">Total Order: {cart.length}</p>
         <p className=" md:text-3xl text-xl">Total Price: {totalPrice}</p>
-        <button className="btn md:text-2xl text-xl bg-[#D1A054]">Pay</button>
+        {
+          cart.length?
+          <Link to={'/dashboard/payment'}>
+          <button className="btn md:text-2xl text-xl bg-[#D1A054]">Pay</button></Link> : <button disabled className="btn  md:text-2xl text-xl bg-[#D1A054]">Pay</button>
+        }
       </div>
       <div className="overflow-x-auto  md:px-12">
         <table className="table">

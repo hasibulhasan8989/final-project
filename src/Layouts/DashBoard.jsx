@@ -99,7 +99,7 @@ const DashBoard = () => {
                 </Link>
               </li>
               <li>
-                <Link>
+                <Link to={'/dashboard/payment-history'}>
                   {" "}
                   <FaWallet size={25}></FaWallet> Payment History
                 </Link>
