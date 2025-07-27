@@ -54,7 +54,7 @@ const DashBoard = () => {
                 isAdmin ?<>
                 {/* admin Panel */}
                 <li>
-                <Link>
+                <Link to={'/dashboard/adminHome'}>
                   {" "}
                   <FaHome size={30}></FaHome> Admin Home
                 </Link>
@@ -87,7 +87,7 @@ const DashBoard = () => {
                 </> :<>
                 {/* normal user */}
                 <li>
-                <Link>
+                <Link to={'/dashboard/userHome'}>
                   {" "}
                   <FaHome size={30}></FaHome> User Home
                 </Link>

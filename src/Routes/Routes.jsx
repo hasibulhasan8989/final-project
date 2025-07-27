@@ -19,6 +19,8 @@ import ManageItems from "../Pages/DashBoard/ManageItems/ManageItems";
 import UpdateMenuItem from "../Pages/DashBoard/UpdateMenu/UpdateMenuItem";
 import Payment from "../Pages/DashBoard/Payment/Payment";
 import PaymentHistory from "../Pages/DashBoard/PayemenHistory/PaymentHistory";
+import AdminHome from "../Pages/DashBoard/AdminHome/AdminHome";
+import UserHome from "../Pages/DashBoard/UserHome/UserHome";
 
  export const router = createBrowserRouter([
   {
@@ -59,6 +61,10 @@ import PaymentHistory from "../Pages/DashBoard/PayemenHistory/PaymentHistory";
     children:[
       // user route
       {
+        path:'userHome',
+        element:<UserHome></UserHome>
+      },
+      {
         path:'my-cart',
         element:<MyCart></MyCart>
       },
@@ -74,6 +80,10 @@ import PaymentHistory from "../Pages/DashBoard/PayemenHistory/PaymentHistory";
       // admin route
      
       {
+        path:'adminHome',
+        element:<AdminRoute><AdminHome></AdminHome></AdminRoute>
+      },
+      {
         path:'users',
         element:<AdminRoute><Users></Users></AdminRoute>
       },
@@ -83,9 +93,13 @@ import PaymentHistory from "../Pages/DashBoard/PayemenHistory/PaymentHistory";
         element:<AdminRoute><ManageItems></ManageItems></AdminRoute>
       },
       {
+        path:'add-items',
+        element:<AdminRoute><AddItems></AddItems></AdminRoute>
+      },
+      {
         path:'update-item/:id',
         element:<AdminRoute><UpdateMenuItem></UpdateMenuItem></AdminRoute>,
-        loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
+        loader:({params})=>fetch(`https://final-project-server-neon-eight.vercel.app/menu/${params.id}`)
         
       },
 

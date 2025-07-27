@@ -28,27 +28,59 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
+    setLoading(true)
     return signOut(auth);
   };
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       console.log("Current User --->", currentUser);
-      if (currentUser) {
+       setUser(currentUser);
+        if (currentUser) {
         const user = { user: currentUser.email };
-
-        axiosPublic.post("/jwt", user).then((res) => {
-          if (res.data.token) {
-            localStorage.setItem("Access-Token", res.data.token);
+        axiosPublic.post("/jwt", user)
+        .then((res) => {
+          if (res.data?.token) {
+            localStorage.setItem("Access-Token", res.data.token);         
+            setLoading(false);
           }
+        }).finally(() => {
+          setLoading(false); // ✅ move here to ensure it's only set after token
         });
       } else {
         localStorage.removeItem("Access-Token");
+        setLoading(false)
+        
       }
-      setUser(currentUser);
-      setLoading(false);
     });
-  }, []);
+  }, [axiosPublic]);
+
+
+
+//   useEffect(() => {
+//   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+//     console.log("Current User --->", currentUser);
+//     setUser(currentUser);
+
+//     if (currentUser) {
+//       const user = { user: currentUser.email };
+//       axiosPublic.post("/jwt", user).then((res) => {
+//         if (res.data.token) {
+//           localStorage.setItem("Access-Token", res.data.token);
+//         }
+//         setLoading(false); // ✅ Always stop loading
+//       }).catch(() => {
+//         setLoading(false); // ✅ Handle network errors too
+//       });
+//     } else {
+//       localStorage.removeItem("Access-Token");
+//       setLoading(false); // ✅ Must run even when user is null
+//     }
+//   });
+
+//   return () => unsubscribe(); // ✅ Cleanup subscription
+// }, [axiosPublic]);
+ const token=localStorage.getItem("Access-Token")
 
   const googleLogIn = () => {
     return signInWithPopup(auth, googleProvider);
@@ -69,6 +101,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     googleLogIn,
     updateUser,
+    token
   };
 
   return (

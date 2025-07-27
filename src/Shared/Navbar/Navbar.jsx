@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { IoCartOutline } from "react-icons/io5";
 import useCart from '../../Hooks/useCart';
+import useAdmin from '../../Hooks/useAdmin';
 
 
 const Navbar = () => {
   const {user,logOut}=useAuth()
   const {cart,refetch}=useCart()
+  const {isAdmin}=useAdmin()
 
   
   const handleLogout=async()=>{
@@ -24,7 +26,22 @@ const Navbar = () => {
     <li><Link to={'/menu'}>Our Menu</Link></li>
     <li><Link to={'/contact-us'}>Contact Us</Link></li>
     <li><Link to={`/our-shop/salad`}>Our Shop</Link></li>
-    <li><Link to={'dashboard/my-cart'} className='relative' ><IoCartOutline color='#78C841' size={30} ></IoCartOutline> <span className='absolute right-1 bottom-4 bg-red-500 text-sm px-1 rounded-full'>{cart.length}</span> </Link></li>
+    <li><Link to={'/dashboard/my-cart'} className='relative' ><IoCartOutline color='#78C841' size={30} ></IoCartOutline> <span className='absolute right-1 bottom-4 bg-red-500 text-sm px-1 rounded-full'>{cart.length}</span> </Link></li>
+   
+    {/* <li><Link to={`/dashboard/adminHome`}>Dashboard</Link></li> */}
+
+    {
+     user && isAdmin &&  <li><Link to={`/dashboard/adminHome`}>Dashboard</Link></li> 
+    }
+
+    {
+      user && !isAdmin  && <li><Link to={`/dashboard/userHome`}>Dashboard</Link></li>
+    }
+    
+    {
+      
+    }
+    
     {
       user? <li><button onClick={handleLogout} >Logout</button></li>   : <li><Link to={`/login`}>Login</Link></li>
     }
